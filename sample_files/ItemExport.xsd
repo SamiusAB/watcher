@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!--
+    -Node: Items
+    -Parent: none
+    -The Items node is the root of the XML Document
+    -->
+    <xs:element name="Items">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="Item"/>
+            </xs:sequence>
+            <!--
+            -Attribute: dateGenerated
+            -Indicates the date and time on which the xml document was generated.
+            -->
+            <xs:attribute name="dateGenerated" use="required" type="xs:dateTime"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Item
+    -Parent: Items
+    -This node represents a single item record
+    -->
+    <xs:element name="Item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="ReceiptAlias"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Name"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Size"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Memo"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Brand"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="Department"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="WeightUnit"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="OnHand"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="SafetyStock"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Location"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField1"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField2"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField3"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField4"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField5"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField6"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField7"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PowerField8"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Image"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ItemGroup"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="Pricing"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="LinkedItems"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Prompt"/>
+            </xs:sequence>
+            <!--
+            -Attribute: scancode
+            -This attribute represents the item's id
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: discontinued
+            -This attribute is used to determine if the item has been discontinued
+            -->
+            <xs:attribute name="discontinued" use="required" type="xs:boolean"/>
+            <!--
+            -Attribute: taxExempt
+            -This attribute states whether this item is exempt from taxation
+            -->
+            <xs:attribute name="taxExempt" use="required" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+    -Node: Department
+    -Parent: Item
+    -This node contains the item's department information
+    -->
+    <xs:element name="Department">
+        <xs:complexType>
+            <!--
+            -Attribute: name
+            -The deparent's name
+            -->
+            <xs:attribute name="name" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: number
+            -The deparent's number
+            -->
+            <xs:attribute name="number" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Brand
+    -Parent: Item
+    -This node contains the item's brand
+    -->
+    <xs:element name="Brand">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: Size
+    -Parent: Item
+    -This node contains the item's size
+    -->
+    <xs:element name="Size">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="20"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: WeightUnit
+    -Parent: Item
+    -This node contains the item's weight unit if it is a scale item
+    -->
+    <xs:element name="WeightUnit">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="20"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: ReceiptAlias
+    -Parent: Item
+    -This node contains the item's receipt alias
+    -->
+    <xs:element name="ReceiptAlias">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="32"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: Name
+    -Parent: Item
+    -This node contains the item's name
+    -->
+    <xs:element name="Name">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="254"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: Memo
+    -Parent: Item
+    -This node contains the item's memo field
+    -->
+    <xs:element name="Memo">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="254"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField1
+    -Parent: Item
+    -This node contains the power field 1 label for this item
+    -->
+    <xs:element name="PowerField1">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField2
+    -Parent: Item
+    -This node contains the power field 2 label for this item
+    -->
+    <xs:element name="PowerField2">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField3
+    -Parent: Item
+    -This node contains the power field 3 label for this item
+    -->
+    <xs:element name="PowerField3">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField4
+    -Parent: Item
+    -This node contains the power field 4 label for this item
+    -->
+    <xs:element name="PowerField4">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField5
+    -Parent: Item
+    -This node contains the power field 5 label for this item
+    -->
+    <xs:element name="PowerField5">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField6
+    -Parent: Item
+    -This node contains the power field 6 label for this item
+    -->
+    <xs:element name="PowerField6">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField7
+    -Parent: Item
+    -This node contains the power field 7 label for this item
+    -->
+    <xs:element name="PowerField7">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: PowerField8
+    -Parent: Item
+    -This node contains the power field 8 label for this item
+    -->
+    <xs:element name="PowerField8">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: OnHand
+    -Parent: Item
+    -This node contains the on hand count for this item
+    -->
+    <xs:element name="OnHand" type="xs:integer"/>
+    <!--
+    -Node: SafetyStock
+    -Parent: Item
+    -This node contains the safety stock quantity for this item
+    -->
+    <xs:element name="SafetyStock" type="xs:integer"/>
+    <!--
+    -Node: Location
+    -Parent: Item
+    -This node contains the item's location within the store
+    -->
+    <xs:element name="Location">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="30"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: Image
+    -Parent: Item
+    -This node contains image file information for the item's image
+    -->
+    <xs:element name="Image">
+        <xs:complexType>
+            <!--
+            -Attribute: filename
+            -Specifies the filename of the image
+            -->
+            <xs:attribute name="filename" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: type
+            -Specifies the mime type of the image
+            -->
+            <xs:attribute name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: ItemGroup
+    -Parent: Item
+    -This node contains the item group that this item belongs to.  Items can belong to multiple item groups
+    -->    
+    <xs:element name="ItemGroup">
+        <xs:complexType>
+            <!--
+            -Attribute: name
+            -Specifies the name of the item group
+            -->
+            <xs:attribute name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Pricing
+    -Parent: Item
+    -This node contains the base pricing for this item
+    -->    
+    <xs:element name="Pricing">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="4" maxOccurs="4" ref="Price"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="PromotionalPricing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: PromotionalPricing
+    -Parent: Pricing
+    -This node contains promotion price information for this item
+    -->
+    <xs:element name="PromotionalPricing">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="4" maxOccurs="4" ref="Price"/>
+            </xs:sequence>
+            <!--
+            -Attribute: startDate
+            -The date on which the promotional pricing becomes effective
+            -->
+            <xs:attribute name="startDate" use="required" type="xs:dateTime"/>
+            <!--
+            -Attribute: endate
+            -The date on which the promotional pricing ends
+            -->
+            <xs:attribute name="endDate" use="required" type="xs:dateTime"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Price
+    -Parent: Pricing|PromotionalPrice
+    -This node contains pricing information
+    -->
+    <xs:element name="Price">
+        <xs:complexType>
+            <!--
+            -Attribute: price
+            -The item's base price for the specified price level
+            -->
+            <xs:attribute name="price" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: priceLevel
+            -The price level for this pricing data
+            -->
+            <xs:attribute name="priceLevel" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:enumeration value="1"/>
+                        <xs:enumeration value="2"/>
+                        <xs:enumeration value="3"/>
+                        <xs:enumeration value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: LinkedItems
+    -Parent: Item
+    -This node contains all information for all items that are linked to this item
+    -->
+    <xs:element name="LinkedItems">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="LinkedItem"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: LinkedItems
+    -Parent: Item
+    -This node contains all information for all items that are linked to this item
+    -->
+    <xs:element name="LinkedItem">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="Department"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="ReceiptAlias"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Name"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="Pricing"/>
+            </xs:sequence>
+            <!--
+            -Attribute: scancode
+            -This attribute represents the item's id
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Prompt
+    -Parent: Item
+    -This node contains prompt data for this item that needs to a response from the purchasing customer
+    -->
+    <xs:element name="Prompt">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="ScreenText"/>
+                <xs:element minOccurs="0" maxOccurs="10" ref="Selection"/>
+            </xs:sequence>
+            <!--
+            -Attribute: id
+            -This attribute contains a unique id for the prompt.  If this item is purchased, this id must be sent back in the order from prompt identification
+            -->
+            <xs:attribute name="id" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: ScreenText
+    -Parent: Prompts
+    -This node contains the prompt text
+    -->
+    <xs:element name="ScreenText">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="50"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <!--
+    -Node: Selection
+    -Parent: Prompts
+    -This node contains the index of the selection made by the customer.  This index will be sent back in the order
+    -->
+    <xs:element name="Selection">
+        <xs:complexType>
+            <!--
+            -Attribute: index
+            -This attribute contains the index of the selection made.  This index will be sent back in the order so the proper selection can be supplied at pos
+            -->
+            <xs:attribute name="index" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:enumeration value="1"/>
+                        <xs:enumeration value="2"/>
+                        <xs:enumeration value="3"/>
+                        <xs:enumeration value="4"/>
+                        <xs:enumeration value="5"/>
+                        <xs:enumeration value="6"/>
+                        <xs:enumeration value="7"/>
+                        <xs:enumeration value="8"/>
+                        <xs:enumeration value="9"/>
+                        <xs:enumeration value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: text
+            -This attribute contains the text for the prompt selection to be displayed
+            -->
+            <xs:attribute name="text" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!--
+    -Node: Item
+    -Parent: Items
+    -This node represents a single item record
+    -->
+    <xs:element name="Order">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="Customer"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Service"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Delivery"/>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="Item"/>
+            </xs:sequence>
+            <!--
+            -Attribute: orderNumber
+            -This attribute represents the order's unique order number
+            -->
+            <xs:attribute name="orderNumber" use="required" type="xs:string"/>
+            <!--
+            -Attribute: fulfillmentDate
+            -Indicates the date and time on which the order is to be fulfilled
+            -->
+            <xs:attribute name="fulfillmentDate" use="required" type="xs:dateTime"/>
+            <!--
+            -Attribute: creationDate
+            -Indicates the date and time on which the order was created
+            -->
+            <xs:attribute name="creationDate" use="required" type="xs:dateTime"/>
+            <!--
+            -Attribute: payAtStore
+            -Indicates as to whether the transaction should be paid for at the store or has already been paid for
+            -->
+            <xs:attribute name="payAtStore" use="required" type="xs:boolean"/>
+            <!--
+            -Attribute: delivered
+            -Indicates as to whether the order is to be delivered in some fashion
+            -->
+            <xs:attribute name="delivered" use="required" type="xs:boolean"/>
+            <!--
+            -Attribute: total
+            -The sales total for the order
+            -->
+            <xs:attribute name="total" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Customer
+    -Parent: Order
+    -The information for the customer who placed the order
+    -->
+    <xs:element name="Customer">
+        <xs:complexType>
+            <!--
+            -Attribute: name
+            -Contains the customer's name
+            -->
+            <xs:attribute name="name" use="required" type="xs:string"/>
+            <!--
+            -Attribute: accountNumber
+            -Contains the customer's account number
+            -->
+            <xs:attribute name="accountNumber">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="16"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Service
+    -Parent: Order
+    -This node contains information about the service fee to be used
+    -->
+    <xs:element name="Service">
+        <xs:complexType>
+            <!--
+            -Attribute: scancode
+            -This attribute represents the service item's id
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: quantity
+            -This attribute represents how many times to apply the service item
+            -->
+            <xs:attribute name="quantity" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Delivery
+    -Parent: Order
+    -This node contains information about the delivery fee to be used
+    -->
+    <xs:element name="Delivery">
+        <xs:complexType>
+            <!--
+            -Attribute: scancode
+            -This attribute represents the service item's id
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: quantity
+            -This attribute represents how many times to apply the service item
+            -->
+            <xs:attribute name="quantity" use="required" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Item
+    -Parent: Order
+    -This node contains information about an item that the customer purchased
+    -->
+    <xs:element name="Item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Weight"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Quantity"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="Prompt"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="LinkedItem"/>
+            </xs:sequence>
+            <!--
+            -Attribute: scancode
+            -This attribute represents the item's id
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: priceLevel
+            -The price level for this pricing data
+            -->
+            <xs:attribute name="priceLevel" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:enumeration value="1"/>
+                        <xs:enumeration value="2"/>
+                        <xs:enumeration value="3"/>
+                        <xs:enumeration value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Weight
+    -Parent: Item
+    -This node contains weight information about a weighted item
+    -->
+    <xs:element name="Weight">
+        <xs:complexType>
+            <!--
+            -Attribute: amount
+            -The item's weight
+            -->
+            <xs:attribute name="amount" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+            -Attribute: unit
+            -The item's weight unit
+            -->
+            <xs:attribute name="unit" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    -Node: Quantity
+    -Parent: Item
+    -This node contains the quantity of the item purchased
+    -->
+    <xs:element name="Quantity">
+        <xs:simpleType>
+            <xs:restriction base="xs:decimal">
+                <xs:totalDigits value="16"/>
+                <xs:fractionDigits value="4"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="Prompt">
+        <xs:complexType>
+            <!--
+            -Attribute: id
+            -The id of the prompt that was received in the item export file
+            -->
+            <xs:attribute name="id" use="required" type="xs:integer"/>
+            <!--
+            -Attribute: response
+            -The response to the prompt provided by the user
+            -->
+            <xs:attribute name="index" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:enumeration value="1"/>
+                        <xs:enumeration value="2"/>
+                        <xs:enumeration value="3"/>
+                        <xs:enumeration value="4"/>
+                        <xs:enumeration value="5"/>
+                        <xs:enumeration value="6"/>
+                        <xs:enumeration value="7"/>
+                        <xs:enumeration value="8"/>
+                        <xs:enumeration value="9"/>
+                        <xs:enumeration value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LinkedItem">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="Quantity"/>
+            </xs:sequence>
+            <!--
+            -Attribute: id
+            -The id of the prompt that was received in the item export file
+            -->
+            <xs:attribute name="scancode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

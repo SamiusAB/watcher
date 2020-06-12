@@ -1,0 +1,30 @@
+<Order orderNumber="12142190" fulfillmentDate="2015-10-31T10:29:00" creationDate="2015-10-28T10:09:20" payAtStore="true" delivered="false" total="53.86">
+	<Customer name="Jane Doe" accountNumber ="444980085013"/>
+	<Service scancode="eService" quantity="1"/>
+	<Delivery scancode="eDelivery" quantity="0"/>
+	<Item scancode="000000020275" priceLevel="2">
+		<Quantity>2</Quantity>
+	</Item>
+	<Item scancode="000000020308" priceLevel="2">
+		<Quantity>1</Quantity>
+	</Item>
+	<Item scancode="000000022330" priceLevel="2">
+		<Weight amount="1.50" unit="lb"/>
+	</Item>
+	<Item scancode="000000047982" priceLevel="2">
+		<Weight amount="3.00" unit="lb"/>
+	</Item>
+	<Item scancode="000000073028" priceLevel="2">
+		<Quantity>1</Quantity>
+	</Item>
+	<Item scancode="00001" priceLevel="2">
+		<Weight amount="2.30" unit="lb"/>
+	</Item>
+	<Item scancode="00036146X" priceLevel="2">
+		<Quantity>1</Quantity>
+	</Item>
+	<Item scancode="T5" priceLevel="2">
+		<Quantity>3</Quantity>
+		<LinkedItem scancode="L1"/>
+	</Item>
+</Order>

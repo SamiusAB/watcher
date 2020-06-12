@@ -1,0 +1,13 @@
+{
+  "name": "grocerbox-watcher",
+  "version": "0.0.1",
+  "bin": "bin.js",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.4.0"
+  }
+}
