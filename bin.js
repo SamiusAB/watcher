@@ -1,2 +1,2 @@
-const grocerboxWatcher = require('.');
+const grocerboxWatcher = require('./index');
 grocerboxWatcher();

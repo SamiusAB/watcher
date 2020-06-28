@@ -1,2 +1,5 @@
 node_modules
 *.exe
+bin-linux
+bin-linux
+bin-macos
